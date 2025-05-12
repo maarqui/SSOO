@@ -1,6 +1,6 @@
 package ssoo;
 
-public class File {
+public class File extends GenericFile{
     String name;
     int clusterNumber;
 
