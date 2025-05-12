@@ -5,7 +5,7 @@ public class GenericFile {
 	Directory dir;
 	File file;
 	
-	public void fillCluster() {
-		
+	public GenericFile(int clusterNumber) {
+		this.clusterNumber = clusterNumber;
 	}
 }

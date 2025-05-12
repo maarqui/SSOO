@@ -1,13 +1,10 @@
 package ssoo;
 
 public class Consola {
-
 	FAT fat;
-	Data data;
 
-	public Consola(FAT fat, Data data) {
+	public Consola(FAT fat) {
 		this.fat = fat;
-		this.data = data;
 	}
 
 	public void imprimirOpciones() {
@@ -39,10 +36,10 @@ public class Consola {
 			fat.deleteDirectory();
 			break;
 		case 6:
-			data.moveFile();
+			fat.moveFile();
 			break;
 		case 7:
-			data.moveDir();
+			fat.moveDir();
 			break;
 		default:
 			System.out.println("Introduzca una opcion valida");

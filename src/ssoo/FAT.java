@@ -1,15 +1,29 @@
 package ssoo;
 
 public class FAT {
-	Metadata metaData;
-	Data data;
+	
+	Cluster clusters[];
+	RootDir rootDir;
+
+	FAT(){
+		clusters = new Cluster[0];
+		rootDir = new RootDir();
+	}
+	
+	FAT(int size) {
+		clusters = new Cluster[size];
+		for (int i = 0; i < size; i++) {
+			clusters[i] = new Cluster(i);
+		}
+		rootDir = new RootDir();
+	}
 
 	public void runStartingCode() {
 
 	}
 
 	public void createDir() {
-
+		
 	}
 
 	public void createFile() {
@@ -25,7 +39,7 @@ public class FAT {
 	}
 
 	public void showMetadata() {
-
+		
 	}
 
 	public void listProces() {
@@ -39,4 +53,18 @@ public class FAT {
 	public void killProces() {
 
 	}
+	
+	public void moveFile() {
+		
+	}
+	
+	public void moveDir() {
+		
+	}
+	
+	public void fillCluster() {
+		
+	}
+	
+	
 }

@@ -14,8 +14,7 @@ public class Main {
 		 */
 		
 		FAT fat = new FAT();
-		Data data = new Data();
-		Consola consola = new Consola(fat, data);
+		Consola consola = new Consola(fat);
 
 		Scanner input = new Scanner(System.in);
 
