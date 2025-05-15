@@ -4,45 +4,43 @@ import java.util.ArrayList;
 
 public class GenericFile {
     private String name;
-    private boolean isDirectory;
-    private int clusterNumber;  
-    private ArrayList<Integer> occupiedClusters;  
+    private boolean directory;
+    private int clusterNumber;
+    private ArrayList<Integer> occupiedClusters;
+    private ArrayList<GenericFile> children;
     private int size;
 
-    public GenericFile(int clusterNumber, boolean isDirectory, int size, String name) {
+    public GenericFile(int clusterNumber, boolean directory, int size, String name) {
         this.clusterNumber = clusterNumber;
-        this.isDirectory = isDirectory;
-        this.name = name != null ? name : "Cluster_" + clusterNumber;
+        this.directory = directory;
+        this.name = (name != null) ? name : "Cluster_" + clusterNumber;
         this.occupiedClusters = new ArrayList<>();
         this.size = size;
-        this.occupiedClusters.add(clusterNumber); 
+        this.occupiedClusters.add(clusterNumber);
+        if (directory) {
+            this.children = new ArrayList<>();
+        }
     }
 
-    public GenericFile(int clusterNumber, boolean isDirectory, String name) {
-        this(clusterNumber, isDirectory, 0, name);
+    public GenericFile(int clusterNumber, boolean directory, String name) {
+        this(clusterNumber, directory, 0, name);
     }
 
     public GenericFile(String name) {
         this.name = name;
-        this.isDirectory = name.endsWith("/");  
+        this.directory = name.endsWith("/");
         this.occupiedClusters = new ArrayList<>();
+        if (directory) {
+            this.children = new ArrayList<>();
+        }
     }
 
     public GenericFile(int clusterNumber) {
-        this.clusterNumber = clusterNumber;
-        this.name = "Cluster_" + clusterNumber; 
-        this.isDirectory = false; 
-        this.occupiedClusters = new ArrayList<>();
-        this.occupiedClusters.add(clusterNumber); 
-        this.size = 0; 
-    }
-
-    public void delete() {
-        System.out.println("Deleting " + name);
+        this(clusterNumber, false, 0, "Cluster_" + clusterNumber);
     }
 
     public boolean isDirectory() {
-        return isDirectory;
+        return directory;
     }
 
     public String getName() {
@@ -50,8 +48,7 @@ public class GenericFile {
     }
 
     public void renameTo(GenericFile dest) {
-        System.out.println("Moving " + name + " to " + dest.getName());
-        this.name = dest.getName();  
+        this.name = dest.getName();
     }
 
     public void setOccupiedClusters(ArrayList<Integer> clusters) {
@@ -68,5 +65,23 @@ public class GenericFile {
 
     public int getClusterNumber() {
         return clusterNumber;
+    }
+
+    public void addChild(GenericFile child) {
+        if (directory && children != null) {
+            children.add(child);
+        }
+    }
+
+    public ArrayList<GenericFile> getChildren() {
+        return children;
+    }
+
+    public GenericFile getChildByName(String name) {
+        if (!directory || children == null) return null;
+        for (GenericFile child : children) {
+            if (child.getName().equals(name)) return child;
+        }
+        return null;
     }
 }
